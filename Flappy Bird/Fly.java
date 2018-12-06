@@ -24,11 +24,17 @@ public class Fly extends Actor
     int spaceBelow=pipeHeight/2;
     GreenfootSound fly=new GreenfootSound("sfx_wing.wav");
     GreenfootSound point=new GreenfootSound("sfx_point.wav");
+    
+    //frames
+    int frames;
 
     private Score counter;
     public Bottom b;
     public Top t;
     
+    private GreenfootImage wingUp= new GreenfootImage("flappybird1.png");
+    private GreenfootImage wingMid= new GreenfootImage("flappybird2.png");
+    private GreenfootImage wingDown= new GreenfootImage("flappybird3.png");
 
     public Fly(Score counter1){
         counter=counter1;
@@ -45,6 +51,7 @@ public class Fly extends Actor
         rotate();
         time++;
         time2++;
+        frames++;
         //System.out.println();
         addPoint();
 
@@ -53,6 +60,7 @@ public class Fly extends Actor
             Count=0;
             time=0;
         }
+        animate();
         getWorld().addObject(new Ground(),0,475);
     }   
 
@@ -107,6 +115,19 @@ public class Fly extends Actor
         if (time==200){
             point.play();
             counter.addScore();
+        }
+    }
+    
+    public void animate(){
+        if (frames<5){
+            setImage(wingUp);
+        }
+        if (frames>5 && frames<10){
+            setImage(wingMid);
+        }
+        if (frames>10 && frames<15){
+            setImage(wingDown);
+            frames=0;
         }
     }
     }
